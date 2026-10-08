@@ -1,0 +1,33 @@
+{
+  "info": {
+    "name": "Gestión de Empleados",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base", "value": "http://localhost:3000/api/employees" },
+    { "key": "id", "value": "PEGA_AQUI_EL_ID" }
+  ],
+  "item": [
+    { "name": "Listar empleados", "request": { "method": "GET", "url": "{{base}}" } },
+    { "name": "Obtener empleado", "request": { "method": "GET", "url": "{{base}}/{{id}}" } },
+    {
+      "name": "Crear empleado",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Ana Pérez\",\n  \"cargo\": \"Desarrolladora\",\n  \"oficina\": \"Medellín\",\n  \"salario\": 4500000\n}" },
+        "url": "{{base}}"
+      }
+    },
+    {
+      "name": "Actualizar empleado",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Ana Pérez\",\n  \"cargo\": \"Líder técnica\",\n  \"oficina\": \"Medellín\",\n  \"salario\": 5500000\n}" },
+        "url": "{{base}}/{{id}}"
+      }
+    },
+    { "name": "Eliminar empleado", "request": { "method": "DELETE", "url": "{{base}}/{{id}}" } }
+  ]
+}

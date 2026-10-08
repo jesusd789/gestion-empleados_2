@@ -1,0 +1,63 @@
+<div class="row">
+  <!-- Formulario -->
+  <div class="col s12 m5">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ employee._id ? 'Editar empleado' : 'Nuevo empleado' }}</span>
+        <form #form="ngForm" (ngSubmit)="save(form)" novalidate>
+          <div class="input-field">
+            <input id="nombre" name="nombre" type="text" [(ngModel)]="employee.nombre" required />
+            <label for="nombre" [class.active]="employee.nombre">Nombre</label>
+          </div>
+          <div class="input-field">
+            <input id="cargo" name="cargo" type="text" [(ngModel)]="employee.cargo" required />
+            <label for="cargo" [class.active]="employee.cargo">Cargo</label>
+          </div>
+          <div class="input-field">
+            <input id="oficina" name="oficina" type="text" [(ngModel)]="employee.oficina" required />
+            <label for="oficina" [class.active]="employee.oficina">Oficina</label>
+          </div>
+          <div class="input-field">
+            <input id="salario" name="salario" type="number" min="0" [(ngModel)]="employee.salario" required />
+            <label for="salario" class="active">Salario</label>
+          </div>
+          <button class="btn waves-effect waves-light teal" type="submit" [disabled]="form.invalid">
+            {{ employee._id ? 'Actualizar' : 'Guardar' }}
+          </button>
+          <button class="btn-flat" type="button" (click)="reset(form)">Cancelar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla -->
+  <div class="col s12 m7">
+    <table class="striped responsive-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Cargo</th>
+          <th>Oficina</th>
+          <th>Salario</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (emp of employees; track emp._id) {
+          <tr>
+            <td>{{ emp.nombre }}</td>
+            <td>{{ emp.cargo }}</td>
+            <td>{{ emp.oficina }}</td>
+            <td>{{ emp.salario | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</td>
+            <td>
+              <button class="btn-small blue" (click)="edit(emp)">Editar</button>
+              <button class="btn-small red" (click)="delete(emp._id!)">Eliminar</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5" class="center-align">No hay empleados registrados</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
